@@ -1,8 +1,7 @@
 const input = document.querySelector("#input");
-const body = document.querySelector("body");
 const card1 = document.querySelector(".card1");
 const select = document.querySelector("#flag");
-const time=document.querySelector
+const timeDiv = document.querySelector(".time");
 
 window.onload = function () {
   flagApi();
@@ -19,11 +18,12 @@ const flagApi = async () => {
     });
 
     select.addEventListener("change", () => {
-      const countryFlag = data.filter((x) => {
-        return x.name.common === select.value;
+      const countryFlag = data.filter((item) => {
+        return item.name.common === select.value;
       });
 
       slectedCountry(countryFlag);
+      bgColor();
     });
   } catch (error) {
     console.log(error);
@@ -38,7 +38,6 @@ const slectedCountry = (countryC) => {
     capital,
     languages,
     flags: { png },
-    maps: { googleMaps },
     population,
   } = countryC[0];
 
@@ -61,10 +60,22 @@ const slectedCountry = (countryC) => {
             </ul>
 
         </div>`;
+
+
+        const body = document.querySelector("body");
+        const h2 = document.querySelector("h2");
+        const a = Math.floor(Math.random() * 255);
+        const b = Math.floor(Math.random() * 255);
+        const c = Math.floor(Math.random() * 255);
+        const renk = `rgb(${a},${b},${c})`;
+        const renk1 = `rgb(${c},${a},${b})`;
+
+        body.style.backgroundColor = `${renk}`;
+        h2.style.color = `${renk1}`;
 };
 
 setInterval(() => {
-
+  const time = new Date();
   let hours = time.getHours();
   let minutes = time.getMinutes();
   let seconds = time.getSeconds();
@@ -73,14 +84,9 @@ setInterval(() => {
   minutes = minutes < 10 ? "0" + minutes : minutes;
   seconds = seconds < 10 ? "0" + seconds : seconds;
 
-  const a=setInterval(()=>{":"},1000)
-  time.innerHTML =
-    hours +
-    ":" +
-    minutes +
-    a
-    +
-    seconds;
+  timeDiv.innerHTML = hours + " : " + minutes + " : " + seconds;
 
+  
+}, 1000);
 
-}, 1000); 
+// const bgColor = () => {};
